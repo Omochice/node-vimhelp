@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    name: 'Test on Node.js ${{ matrix.node-version }}'
+    name: 'Test on Node.js ${{ matrix.node-version }} on ${{ matrix.runs-on }}'
     strategy:
       matrix:
         node-version:
@@ -20,12 +20,15 @@ jobs:
           - "22.0"
           - "22"
           - "latest"
+        runs-on:
+          - 'ubuntu-latest'
+          - 'macos-latest'
         include:
           - node-version: "latest"
             node-options: "--no-experimental-strip-types"
       fail-fast: false
 
-    runs-on: 'ubuntu-latest'
+    runs-on: ${{ matrix.runs-on }}
     timeout-minutes: 10
 
     steps:
