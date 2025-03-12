@@ -15,6 +15,7 @@
     "eslint": "^8.18.0",
     "eslint-plugin-import": "^2.26.0",
     "temp": "^0.9.4",
+    "tsup": "^8.4.0",
     "typescript": "^5.8.2",
     "vitest": "^3.0.8"
   },
@@ -32,13 +33,20 @@
   ],
   "license": "Zlib",
   "main": "./lib/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs"
+    }
+  },
   "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/thinca/node-vimhelp.git"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup --config tsup.config.ts",
     "clean": "rm -fr coverage lib",
     "lint": "eslint src test",
     "test": "vitest run --config vitest.config.ts",
