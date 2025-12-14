@@ -1,0 +1,22 @@
+name: Publish to pkg.pr.new
+
+on:
+  push: null
+  pull_request: null
+
+jobs:
+  pkg-pr-new:
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - run: npm run build
+      - run: npx pkg-pr-new publish
